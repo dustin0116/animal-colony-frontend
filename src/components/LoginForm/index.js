@@ -28,7 +28,7 @@ const Login = () => {
   };
 
   if (redirectToRegister) {
-    return <Redirect to='/registration' />
+    return <Redirect to="/registration" />
   };
 
   return (

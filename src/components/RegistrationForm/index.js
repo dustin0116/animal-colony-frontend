@@ -9,6 +9,7 @@ const RegistrationForm = () => {
 
   const attemptRegister = (event) => {
     event.preventDefault();
+    console.log(userDetails);
     register(userDetails);
   };
   /**
@@ -26,16 +27,16 @@ const RegistrationForm = () => {
   };
 
   if (redirectLogin) {
-    return <Redirect to='/' />
+    return <Redirect to="/" />
   };
 
   return (
     <form className="registration-form">
-      <button type="submit" onClick={() => setRedirectLogin(false)}>Back to login</button>
-      <input name="firstName" type="text" onChange={updateInput} />
-      <input name="lastName" type="text" onChange={updateInput} />
-      <input name="username" type="text" onChange={updateInput} />
-      <input name="password" type="password" onChange={updateInput} />
+      <button type="submit" onClick={() => setRedirectLogin(true)}>Back to login</button>
+      <input name="firstName" type="text" placeholder="Enter First Name" onChange={updateInput} />
+      <input name="lastName" type="text" placeholder="Enter Last Name" onChange={updateInput} />
+      <input name="username" type="text" placeholder="Enter Username" onChange={updateInput} />
+      <input name="password" type="password" placeholder="Enter Password" onChange={updateInput} />
       <button type="submit" onClick={attemptRegister} onChange={updateInput}>
         Register
       </button>
