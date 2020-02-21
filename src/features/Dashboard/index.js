@@ -8,6 +8,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <h1>{`Welcome ${first}!`}</h1>
+      <p>Login Successful.</p>
       <Logout />
     </div>
   );

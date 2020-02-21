@@ -1,22 +1,14 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom'
 import { useProfileProvider } from 'contexts/profile';
 
-const Login = () => {
-  const { login } = useProfileProvider();
+const RegistrationForm = () => {
+  const { register } = useProfileProvider();
   const [userDetails, setUserDetails] = useState({});
 
-  const attemptLogin = (event) => {
+  const attemptRegister = (event) => {
     event.preventDefault();
-    login(userDetails);
+    register(userDetails);
   };
-
-  const redirectRegister = (event) => {
-    event.preventDefault();
-    return <Redirect to='/registration' />;
-  };
-
-
   /**
    * A reusable function to update the state with a key/value pair where the
    * key is the name of the component and the value is its most recent value...
@@ -32,17 +24,16 @@ const Login = () => {
   };
 
   return (
-    <form className="login-form">
+    <form className="registration-form">
+      <input name="firstName" type="text" onChange={updateInput} />
+      <input name="lastName" type="text" onChange={updateInput} />
       <input name="username" type="text" onChange={updateInput} />
       <input name="password" type="password" onChange={updateInput} />
-      <button type="submit" onClick={attemptLogin} onChange={updateInput}>
-        Login
+      <button type="submit" onClick={attemptRegister} onChange={updateInput}>
+        Register
       </button>
-      <div>
-        <button type="submit" onClick={redirectRegister}>Not registered? Click here to register.</button>
-      </div>
     </form>
   );
 };
 
-export default Login;
+export default RegistrationForm;
