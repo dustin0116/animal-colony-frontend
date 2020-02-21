@@ -25,6 +25,7 @@ const App = () => (
 
 const ProtectedRoute = (props) => {
   const { state: { loggedIn } } = useProfileProvider();
+
   if (!loggedIn) return <Redirect to="/" />;
 
   return (<Route {...props} />);

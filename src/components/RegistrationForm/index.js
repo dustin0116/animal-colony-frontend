@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useProfileProvider } from 'contexts/profile';
 
 const RegistrationForm = () => {
   const { register } = useProfileProvider();
   const [userDetails, setUserDetails] = useState({});
+  const [redirectLogin, setRedirectLogin] = useState(false);
 
   const attemptRegister = (event) => {
     event.preventDefault();
@@ -23,8 +25,13 @@ const RegistrationForm = () => {
     setUserDetails(prevState => ({ ...prevState, [name]: value }));
   };
 
+  if (redirectLogin) {
+    return <Redirect to='/' />
+  };
+
   return (
     <form className="registration-form">
+      <button type="submit" onClick={() => setRedirectLogin(false)}>Back to login</button>
       <input name="firstName" type="text" onChange={updateInput} />
       <input name="lastName" type="text" onChange={updateInput} />
       <input name="username" type="text" onChange={updateInput} />
