@@ -1,12 +1,36 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom'
 import { useProfileProvider } from 'contexts/profile';
-import './style.css';
+import { Button, TextField, Link, Container, CssBaseline, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Login = () => {
   const { login } = useProfileProvider();
   const [userDetails, setUserDetails] = useState({});
   const [redirectToRegister, setRedirectToRegister] = useState(false);
+
+  const useStyles = makeStyles(theme => ({
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+      width: '100%', // Fix IE 11 issue.
+      marginTop: theme.spacing(1),
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+    },
+  }));
+
+  const classes = useStyles();
+
 
   const attemptLogin = (event) => {
     event.preventDefault();
@@ -32,19 +56,45 @@ const Login = () => {
   };
 
   return (
-    <form className="login-form">
-      <div class="center">
-        <input name="username" type="text" placeholder="Enter Username" onChange={updateInput} />
-        <input name="password" type="password" placeholder="Enter Password" onChange={updateInput} />
-        <button type="submit" onClick={attemptLogin} onChange={updateInput}>
-          Login
-      </button>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Typography>Log in</Typography>
+        <form className={classes.form} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            label="Username"
+            name="username"
+            type="username"
+            autoFocus
+            onChange={updateInput} />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            label="Password"
+            name="password"
+            type="password"
+            onChange={updateInput} />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={attemptLogin}
+            onChange={updateInput}
+          >Sign in</Button>
+        </form>
+        <Link href="#" onClick={() => setRedirectToRegister(true)} variant="body2">
+          {"Don't have an account? Sign Up"}
+        </Link>
       </div>
-
-      <div class="center">
-        <button type="submit" onClick={() => setRedirectToRegister(true)}>Not registered? Click here to register.</button>
-      </div>
-    </form>
+    </Container>
   );
 };
 
