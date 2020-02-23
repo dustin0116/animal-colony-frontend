@@ -9,6 +9,7 @@ const Login = () => {
   const [userDetails, setUserDetails] = useState({});
   const [redirectToRegister, setRedirectToRegister] = useState(false);
 
+  /** Material-UI */
   const useStyles = makeStyles(theme => ({
     paper: {
       marginTop: theme.spacing(8),
@@ -30,7 +31,6 @@ const Login = () => {
   }));
 
   const classes = useStyles();
-
 
   const attemptLogin = (event) => {
     event.preventDefault();
@@ -91,7 +91,7 @@ const Login = () => {
           >Sign in</Button>
         </form>
         <Link href="#" onClick={() => setRedirectToRegister(true)} variant="body2">
-          {"Don't have an account? Sign Up"}
+          {"Don't have an account? Register here"}
         </Link>
       </div>
     </Container>
