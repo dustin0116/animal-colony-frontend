@@ -8,6 +8,7 @@ const Register = () => {
   const { register } = useProfileProvider();
   const [userDetails, setUserDetails] = useState({});
   const [redirectToLogin, setRedirectToLogin] = useState(false);
+  const [redirectToDashboard, setRedirectToDashboard] = useState(false);
 
   /** Material-UI */
   const useStyles = makeStyles(theme => ({
@@ -35,7 +36,7 @@ const Register = () => {
   const attemptRegister = (event) => {
     event.preventDefault();
     register(userDetails);
-    setRedirectToLogin(true);
+    setRedirectToDashboard(true);
     //TODO: Check for 401 and redirect if 200.
   };
   /**
@@ -55,6 +56,10 @@ const Register = () => {
   if (redirectToLogin) {
     return <Redirect to="/" />
   };
+
+  if (redirectToDashboard) {
+    return <Redirect to="/dashboard" />
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -93,6 +98,7 @@ const Register = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                type="username"
                 name="username"
                 variant="outlined"
                 required
@@ -102,6 +108,7 @@ const Register = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                type="password"
                 name="password"
                 variant="outlined"
                 required
@@ -125,18 +132,6 @@ const Register = () => {
         </form>
       </div>
     </Container >
-    // <div>
-    //   <button onClick={() => setRedirectLogin(true)}>Back to login</button>
-    //   <form className="registration-form">
-    //     <input name="firstName" type="text" placeholder="Enter First Name" onChange={updateInput} />
-    //     <input name="lastName" type="text" placeholder="Enter Last Name" onChange={updateInput} />
-    //     <input name="username" type="text" placeholder="Enter Username" onChange={updateInput} />
-    //     <input name="password" type="password" placeholder="Enter Password" onChange={updateInput} />
-    //     <button onClick={attemptRegister} onChange={updateInput}>
-    //       Register
-    //   </button>
-    //   </form>
-    // </div>
   );
 };
 
