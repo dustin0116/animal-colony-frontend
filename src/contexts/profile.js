@@ -23,7 +23,7 @@ const ProfileProvider = ({ children }) => {
       }
 
       case REGISTER: {
-        return { ...prevState, loggedIn: true, ...payload };
+        return { ...prevState, loggedIn: false };
       }
 
       case LOGOUT: {
@@ -49,10 +49,7 @@ const useProfileProvider = () => {
 
 
   const register = credentials => axios
-    .post(`${BASE_URL}/users`, credentials)
-    .then(({ data }) => {
-      dispatch({ type: REGISTER, payload: data })
-    });
+    .post(`${BASE_URL}/user`, credentials);
 
   const logout = () => dispatch({
     type: LOGOUT,
