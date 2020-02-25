@@ -5,7 +5,7 @@ const Registration = () => {
 
   return (
     <div className="registration">
-      <h1>Register for an account.</h1>
+      <h1 style={{textAlign: 'center'}}>Register for an account.</h1>
       <Register />
     </div>
   );

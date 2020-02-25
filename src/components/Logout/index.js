@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useProfileProvider } from 'contexts/profile';
+import { Button } from '@material-ui/core';
 
 const Logout = ({ redirectURL }) => {
   const { logout } = useProfileProvider();
@@ -16,9 +17,9 @@ const Logout = ({ redirectURL }) => {
     return <Redirect to={redirectURL} />;
   }
   return (
-    <button onClick={handleLogout}>
+    <Button onClick={handleLogout} variant="outlined">
       Logout
-    </button>
+    </Button>
   );
 };
 

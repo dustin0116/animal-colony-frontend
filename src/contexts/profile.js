@@ -58,12 +58,19 @@ const useProfileProvider = () => {
     type: LOGOUT,
   });
 
+  const addItem = credentials => axios
+    .post(`${BASE_URL}/cart`, credentials)
+    .then(({data}) => {
+      dispatch({ payload: data })
+    });
+
   return {
     state,
     dispatch,
     login,
     logout,
-    register
+    register,
+    addItem
   };
 };
 

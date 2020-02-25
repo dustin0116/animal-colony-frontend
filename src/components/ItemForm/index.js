@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import { useProfileProvider } from 'contexts/profile';
 import { Button, TextField, Grid, Container, CssBaseline, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const Register = () => {
-  const { register } = useProfileProvider();
-  const [userDetails, setUserDetails] = useState({});
-  const [redirectToLogin, setRedirectToLogin] = useState(false);
-  const [redirectToDashboard, setRedirectToDashboard] = useState(false);
+const ItemForm = () => {
+  const { addItem } = useProfileProvider();
+  const [itemDetails, setItemDetails] = useState({});
 
   /** Material-UI */
   const useStyles = makeStyles(theme => ({
@@ -33,11 +30,9 @@ const Register = () => {
 
   const classes = useStyles();
 
-  const attemptRegister = (event) => {
-    //TODO: Check for 401 and redirect if 200.
+  const addToCart = (event) => {
     event.preventDefault();
-    register(userDetails);
-    setRedirectToDashboard(true);
+    addItem(itemDetails);
   };
   /**
    * A reusable function to update the state with a key/value pair where the
@@ -50,70 +45,36 @@ const Register = () => {
    * @param value
    */
   const updateInput = ({ target: { name, value } }) => {
-    setUserDetails(prevState => ({ ...prevState, [name]: value }));
+    setItemDetails(prevState => ({ ...prevState, [name]: value }));
   };
-
-  if (redirectToLogin) {
-    return <Redirect to="/" />
-  };
-
-  if (redirectToDashboard) {
-    return <Redirect to="/dashboard" />
-  }
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Button
-          variant="contained"
-          onClick={() => setRedirectToLogin(true)}
-        >
-          Back to Login
-      </Button>
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Register
+          Add Item
       </Typography>
 
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                name="firstName"
+                name="name"
                 variant="outlined"
                 required
                 fullWidth
-                label="First Name"
+                label="Item Name"
                 autoFocus
                 onChange={updateInput} />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                name="lastName"
+                name="cost"
                 variant="outlined"
                 required
                 fullWidth
-                label="Last Name"
-                onChange={updateInput} />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="username"
-                name="username"
-                variant="outlined"
-                required
-                fullWidth
-                label="User Name"
-                onChange={updateInput} />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="password"
-                name="password"
-                variant="outlined"
-                required
-                fullWidth
-                label="Password"
+                label="Price"
                 onChange={updateInput} />
             </Grid>
           </Grid>
@@ -125,9 +86,9 @@ const Register = () => {
             color="primary"
             className={classes.submit}
             onChange={updateInput}
-            onClick={attemptRegister}
+            onClick={addToCart}
           >
-            Register
+            Add to Cart
           </Button>
         </form>
       </div>
@@ -135,4 +96,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ItemForm;
