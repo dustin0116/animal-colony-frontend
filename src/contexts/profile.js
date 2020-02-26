@@ -11,6 +11,7 @@ const BASE_URL = 'http://localhost:5000/api';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 const REGISTER = 'REGISTER';
+const ITEM = 'ITEM';
 
 const ProfileProvider = ({ children }) => {
   const [state, dispatch] = useReducer((prevState, action) => {
@@ -24,6 +25,10 @@ const ProfileProvider = ({ children }) => {
 
       case REGISTER: {
         return { ...prevState, loggedIn: true, ...payload };
+      }
+
+      case ITEM: {
+        return { ...prevState, ...payload};
       }
 
       case LOGOUT: {
@@ -47,7 +52,6 @@ const useProfileProvider = () => {
       dispatch({ type: LOGIN, payload: data });
     });
 
-
   const register = credentials => axios
     .post(`${BASE_URL}/user`, credentials)
     .then(({ data }) => {
@@ -61,7 +65,13 @@ const useProfileProvider = () => {
   const addItem = credentials => axios
     .post(`${BASE_URL}/cart`, credentials)
     .then(({data}) => {
-      dispatch({ payload: data })
+      dispatch({ type: ITEM, payload: data })
+    });
+  
+  const getItem = credentials => axios
+    .get(`${BASE_URL}/cart`, credentials)
+    .then(({data}) => {
+      dispatch({ type: ITEM, payload: data })
     });
 
   return {
@@ -70,7 +80,8 @@ const useProfileProvider = () => {
     login,
     logout,
     register,
-    addItem
+    addItem,
+    getItem
   };
 };
 

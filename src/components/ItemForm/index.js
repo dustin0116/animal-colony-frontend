@@ -52,11 +52,13 @@ const ItemForm = () => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
+
         <Typography component="h1" variant="h5">
           Add Item
       </Typography>
 
         <form className={classes.form} noValidate>
+
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -90,7 +92,9 @@ const ItemForm = () => {
           >
             Add to Cart
           </Button>
+
         </form>
+
       </div>
     </Container >
   );
