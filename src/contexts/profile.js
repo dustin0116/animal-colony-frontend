@@ -2,7 +2,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import React, { createContext, useReducer, useContext } from 'react';
 
-const initialState = { loggedIn: false, name: {} };
+const initialState = { loggedIn: false, name: {}, cart: [] };
 const store = createContext(initialState);
 const { Provider } = store;
 
@@ -28,7 +28,7 @@ const ProfileProvider = ({ children }) => {
       }
 
       case ITEM: {
-        return { ...prevState, ...payload};
+        return { ...prevState, cart: payload };
       }
 
       case LOGOUT: {
@@ -65,12 +65,14 @@ const useProfileProvider = () => {
   const addItem = credentials => axios
     .post(`${BASE_URL}/cart`, credentials)
     .then(({data}) => {
+      console.log(data);
       dispatch({ type: ITEM, payload: data })
     });
   
-  const getItem = credentials => axios
-    .get(`${BASE_URL}/cart`, credentials)
+  const getCart = () => axios
+    .get(`${BASE_URL}/cart`)
     .then(({data}) => {
+      console.log(data);
       dispatch({ type: ITEM, payload: data })
     });
 
@@ -81,7 +83,7 @@ const useProfileProvider = () => {
     logout,
     register,
     addItem,
-    getItem
+    getCart
   };
 };
 
