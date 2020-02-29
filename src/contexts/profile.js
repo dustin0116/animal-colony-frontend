@@ -28,6 +28,7 @@ const ProfileProvider = ({ children }) => {
       }
 
       case ITEM: {
+        console.log(payload);
         return { ...prevState, cart: payload };
       }
 
@@ -63,16 +64,15 @@ const useProfileProvider = () => {
   });
 
   const addItem = credentials => axios
-    .post(`${BASE_URL}/cart`, credentials)
+    .post(`${BASE_URL}/cart`, credentials, { withCredentials: true })
     .then(({data}) => {
       console.log(data);
       dispatch({ type: ITEM, payload: data })
     });
   
   const getCart = () => axios
-    .get(`${BASE_URL}/cart`)
+    .get(`${BASE_URL}/cart`, { withCredentials: true })
     .then(({data}) => {
-      console.log(data);
       dispatch({ type: ITEM, payload: data })
     });
 

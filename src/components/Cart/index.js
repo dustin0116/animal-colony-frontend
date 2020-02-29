@@ -1,31 +1,25 @@
 import React from 'react';
 import { useProfileProvider } from 'contexts/profile';
-import { Container, CssBaseline } from '@material-ui/core';
+import { Container, CssBaseline, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const Cart = () => {
   const { state: { cart } } = useProfileProvider();
 
   /** Material-UI */
-  const useStyles = makeStyles(theme => ({
-    paper: {
-      marginTop: theme.spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+  const useStyles = makeStyles({
+    table: {
+      minWidth: 650,
     },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-      width: '100%', // Fix IE 11 issue.
-      marginTop: theme.spacing(3),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-    },
-  }));
+  });
+
+  function createData(name, cost) {
+    return { name, cost };
+  }
+
+  const rows = [
+    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  ];
 
   const classes = useStyles();
 
